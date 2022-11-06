@@ -1,5 +1,7 @@
 import Fastify from "fastify"
 import cors from '@fastify/cors'
+import jwt from '@fastify/jwt'
+
 import { poolRotes } from "./routes/pool"
 import { guessRotes } from "./routes/guess"
 import { gameRotes } from "./routes/game"
@@ -14,6 +16,12 @@ async function bootstrap() {
 
     await fastify.register(cors, {
         origin: true, 
+    })
+
+
+    // Em produção isso precisa ser uma variável ambiente
+    await fastify.register(jwt, {
+        secret: 'nlw',
     })
 
     await fastify.register(poolRotes)
